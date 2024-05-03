@@ -2,13 +2,22 @@ import { and, eq } from 'drizzle-orm';
 import { db } from './db';
 import { users, watchlist, ratings } from './db/schema';
 
-export async function postUser(name: string, email: string, image: string) {
+export async function postUser(id: string, name: string, email: string, image: string) {
     const user = await db.query.users.findFirst({
         where: (model, { eq }) => eq(model.email, email),
     });
     if (user) {
-        await db.insert(users).values({ name, email, image });
+        await db.insert(users).values({ id, name, email, image }).returning();
     }
+}
+
+export async function getUser(id: string) {
+    const user = await db.query.users.findMany({
+        where: (model, { eq }) => eq(model.id, id),
+        orderBy: (model, { desc }) => desc(model.id),
+    });
+
+    return user;
 }
 
 export async function postWatchlist(userID: string, movieID: string) {
