@@ -17,8 +17,8 @@ router.post('/user/:id/watchlist', async (request, response) => {
 router.get('/user/:id/watchlist', async (request, response) => {
     const id = request.params.id;
     try {
-        await getWatchlist(id);
-        response.status(200).json({ message: 'Watchlist get successfully' });
+        const watchlist = await getWatchlist(id);
+        response.status(200).json(watchlist);
     } catch (error) {
         console.error('Error getting the watchlist:', error);
         response.status(500).json({ error: 'An error occurred while getting the watchlist' });
