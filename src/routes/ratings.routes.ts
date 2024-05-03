@@ -17,8 +17,8 @@ router.post('/user/:id/ratings', async (request, response) => {
 router.get('/user/:id/ratings', async (request, response) => {
     const id = request.params.id;
     try {
-        await getRatings(id);
-        response.status(200).json({ message: 'Rating get successfully' });
+        const ratings = await getRatings(id);
+        response.status(200).json(ratings);
     } catch (error) {
         console.error('Error getting the ratings:', error);
         response.status(500).json({ error: 'An error occurred while getting the ratings' });
