@@ -7,12 +7,12 @@ export async function postUser(id: string, name: string, email: string, image: s
         where: (model, { eq }) => eq(model.email, email),
     });
     if (user) {
-        await db.insert(users).values({ id, name, email, image }).returning();
+        await db.insert(users).values({ id, name, email, image });
     }
 }
 
 export async function getUser(id: string) {
-    const user = await db.query.users.findMany({
+    const user = await db.query.users.findFirst({
         where: (model, { eq }) => eq(model.id, id),
         orderBy: (model, { desc }) => desc(model.id),
     });
