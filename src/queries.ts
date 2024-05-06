@@ -20,12 +20,12 @@ export async function getUser(id: string) {
     return user;
 }
 
-export async function postWatchlist(userID: string, movieID: string) {
-    await db.insert(watchlist).values({ userID: userID, movieID: movieID });
+export async function postWatchlist(id: string, userID: string, movieID: string) {
+    await db.insert(watchlist).values({ id, userID, movieID });
 }
 
-export async function postRatings(userID: string, movieID: string, rating: number) {
-    await db.insert(ratings).values({ userID, movieID, rating });
+export async function postRatings(id: string, userID: string, movieID: string, rating: number) {
+    await db.insert(ratings).values({ id, userID, movieID, rating });
 }
 
 export async function getRatings(id: string) {
@@ -46,21 +46,21 @@ export async function getWatchlist(id: string) {
     return watchlist;
 }
 
-export async function patchRatings(id: string, newRating: number) {
+export async function patchRatings(id: string, rating: number) {
     const patchedRatings = await db.update(ratings)
-        .set({ rating: newRating })
+        .set({ rating: rating })
         .where(and(eq(ratings.movieID, id), eq(ratings.userID, users.id)));
 
     return patchedRatings;
 }
 
-export async function deleteMovieFromRatings(id: number) {
+export async function deleteMovieFromRatings(id: string) {
     await db
         .delete(ratings)
         .where(and(eq(ratings.id, id), eq(ratings.userID, users.id)));
 }
 
-export async function deleteMovieFromWatchlist(id: number) {
+export async function deleteMovieFromWatchlist(id: string) {
     await db
         .delete(watchlist)
         .where(and(eq(watchlist.id, id), eq(watchlist.userID, users.id)));
