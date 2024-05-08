@@ -4,9 +4,9 @@ import { postRatings, getRatings, patchRatings, deleteMovieFromRatings } from '.
 const router = express.Router();
 
 router.post('/user/:id/ratings', async (request, response) => {
-    const { userID, movieID, rating } = request.body;
+    const { id, userID, movieID, rating } = request.body;
     try {
-        await postRatings(userID, movieID, rating);
+        await postRatings(id, userID, movieID, rating);
         response.status(200).json({ message: 'Rating added successfully' });
     } catch (error) {
         console.error('Error adding rating:', error);
@@ -40,7 +40,7 @@ router.patch('/user/:id/ratings', async (request, response) => {
 router.delete('/user/:id/ratings', async (request, response) => {
     const id = request.params.id;
     try {
-        await deleteMovieFromRatings(+id);
+        await deleteMovieFromRatings(id);
         response.status(200).json({ message: 'Rating deleted successfully' });
     } catch (error) {
         console.error('Error deleting the ratings:', error);
