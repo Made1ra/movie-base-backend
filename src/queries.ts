@@ -11,10 +11,10 @@ export async function postUser(id: string, name: string, email: string, image: s
     }
 }
 
-export async function getUser(id: string) {
+export async function getUser(email: string) {
     const user = await db.query.users.findFirst({
-        where: (model, { eq }) => eq(model.id, id),
-        orderBy: (model, { desc }) => desc(model.id),
+        where: (model, { eq }) => eq(model.email, email),
+        orderBy: (model, { desc }) => desc(model.email),
     });
 
     return user;
