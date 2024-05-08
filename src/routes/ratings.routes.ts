@@ -29,8 +29,8 @@ router.patch('/user/:id/ratings', async (request, response) => {
     const id = request.params.id;
     const { rating } = request.body;
     try {
-        await patchRatings(id, rating);
-        response.status(200).json({ message: 'Rating edited successfully' });
+        const ratings = await patchRatings(id, rating);
+        response.status(200).json(ratings);
     } catch (error) {
         console.error('Error editing the ratings:', error);
         response.status(500).json({ error: 'An error occurred while editing the ratings' });
