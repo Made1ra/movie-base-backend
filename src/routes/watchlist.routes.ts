@@ -4,7 +4,8 @@ import { postWatchlist, getWatchlist, deleteMovieFromWatchlist } from '../querie
 const router = express.Router();
 
 router.post('/user/:id/watchlist', async (request, response) => {
-    const { id, userID, movieID } = request.body;
+    const userID = request.params.id.toString();
+    const { id, movieID } = request.body;
     try {
         await postWatchlist(id, userID, movieID);
         response.status(200).json({ message: 'Watchlist added successfully' });
