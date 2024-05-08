@@ -15,10 +15,12 @@ router.post('/', async (request, response) => {
 });
 
 router.get('/', async (request, response) => {
-    const { id } = request.body;
+    const email = request.query.email?.toString();
     try {
-        const user = await getUser(id);
-        response.status(200).json(user);
+        if (email) {
+            const user = await getUser(email);
+            response.status(200).json(user);
+        }
     } catch (error) {
         console.error('Error getting the user:', error);
         response.status(500).json({ error: 'An error occurred while getting the user' });
