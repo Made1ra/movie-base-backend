@@ -4,9 +4,9 @@ import { postWatchlist, getWatchlist, deleteMovieFromWatchlist } from '../querie
 const router = express.Router();
 
 router.post('/user/:id/watchlist', async (request, response) => {
-    const { userID, movieID } = request.body;
+    const { id, userID, movieID } = request.body;
     try {
-        await postWatchlist(userID, movieID);
+        await postWatchlist(id, userID, movieID);
         response.status(200).json({ message: 'Watchlist added successfully' });
     } catch (error) {
         console.error('Error adding watchlist:', error);
@@ -28,7 +28,7 @@ router.get('/user/:id/watchlist', async (request, response) => {
 router.delete('/user/:id/watchlist', async (request, response) => {
     const id = request.params.id;
     try {
-        await deleteMovieFromWatchlist(+id);
+        await deleteMovieFromWatchlist(id);
         response.status(200).json({ message: 'Watchlist deleted successfully' });
     } catch (error) {
         console.error('Error deleting the watchlist:', error);
