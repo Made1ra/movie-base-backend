@@ -4,7 +4,8 @@ import { postRatings, getRatings, patchRatings, deleteMovieFromRatings } from '.
 const router = express.Router();
 
 router.post('/user/:id/ratings', async (request, response) => {
-    const { id, userID, movieID, rating } = request.body;
+    const { id, movieID, rating } = request.body;
+    const userID = request.params.id;
     try {
         await postRatings(id, userID, movieID, rating);
         response.status(200).json({ message: 'Rating added successfully' });
