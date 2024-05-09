@@ -22,7 +22,7 @@ export async function getUser(email: string) {
 
 export async function postWatchlist(id: string, userID: string, movieID: string) {
     const w = await db.query.watchlist.findFirst({
-        where: (model, { eq }) => eq(model.userID, userID),
+        where: (model, { eq }) => eq(model.userID, userID) && eq(model.movieID, movieID),
     });
     if (!w) {
         await db.insert(watchlist).values({ id, userID, movieID });
@@ -31,7 +31,7 @@ export async function postWatchlist(id: string, userID: string, movieID: string)
 
 export async function postRatings(id: string, userID: string, movieID: string, rating: number) {
     const r = await db.query.ratings.findFirst({
-        where: (model, { eq }) => eq(model.userID, userID),
+        where: (model, { eq }) => eq(model.userID, userID) && eq(model.movieID, movieID),
     });
     if (!r) {
         await db.insert(ratings).values({ id, userID, movieID, rating });
