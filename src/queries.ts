@@ -21,11 +21,21 @@ export async function getUser(email: string) {
 }
 
 export async function postWatchlist(id: string, userID: string, movieID: string) {
-    await db.insert(watchlist).values({ id, userID, movieID });
+    const w = await db.query.watchlist.findFirst({
+        where: (model, { eq }) => eq(model.userID, userID),
+    });
+    if (!w) {
+        await db.insert(watchlist).values({ id, userID, movieID });
+    }
 }
 
 export async function postRatings(id: string, userID: string, movieID: string, rating: number) {
-    await db.insert(ratings).values({ id, userID, movieID, rating });
+    const r = await db.query.ratings.findFirst({
+        where: (model, { eq }) => eq(model.userID, userID),
+    });
+    if (!r) {
+        await db.insert(ratings).values({ id, userID, movieID, rating });
+    }
 }
 
 export async function getRating(userID: string, movieID: string) {
