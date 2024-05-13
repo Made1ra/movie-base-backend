@@ -1,33 +1,6 @@
 import { and, eq } from 'drizzle-orm';
-import { db } from './db';
-import { users, watchlist, ratings } from './db/schema';
-
-export async function postUser(id: string, name: string, email: string, image: string) {
-    const user = await db.query.users.findFirst({
-        where: (model, { eq }) => eq(model.email, email),
-    });
-    if (!user) {
-        await db.insert(users).values({ id, name, email, image });
-    }
-}
-
-export async function getUser(email: string) {
-    const user = await db.query.users.findFirst({
-        where: (model, { eq }) => eq(model.email, email),
-        orderBy: (model, { desc }) => desc(model.email),
-    });
-
-    return user;
-}
-
-export async function postWatchlist(id: string, userID: string, movieID: string) {
-    const w = await db.query.watchlist.findFirst({
-        where: (model, { eq }) => eq(model.userID, userID) && eq(model.movieID, movieID),
-    });
-    if (!w) {
-        await db.insert(watchlist).values({ id, userID, movieID });
-    }
-}
+import { db } from '../db';
+import { ratings, users } from '../db/schema';
 
 export async function postRatings(id: string, userID: string, movieID: string, rating: number) {
     const r = await db.query.ratings.findFirst({
@@ -63,15 +36,6 @@ export async function getMovieFromWatchlist(userID: string, movieID: string) {
     return watchlist;
 }
 
-export async function getWatchlist(id: string) {
-    const watchlist = await db.query.watchlist.findMany({
-        where: (model, { eq }) => eq(model.userID, id),
-        orderBy: (model, { desc }) => desc(model.id),
-    });
-
-    return watchlist;
-}
-
 export async function patchRatings(id: string, rating: number) {
     const patchedRatings = await db.update(ratings)
         .set({ rating: rating })
@@ -84,10 +48,4 @@ export async function deleteMovieFromRatings(id: string) {
     await db
         .delete(ratings)
         .where(and(eq(ratings.id, id), eq(ratings.userID, users.id)));
-}
-
-export async function deleteMovieFromWatchlist(id: string) {
-    await db
-        .delete(watchlist)
-        .where(and(eq(watchlist.id, id), eq(watchlist.userID, users.id)));
 }
