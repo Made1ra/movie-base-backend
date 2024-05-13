@@ -28,14 +28,6 @@ export async function getRatings(id: string) {
     return ratings;
 }
 
-export async function getMovieFromWatchlist(userID: string, movieID: string) {
-    const watchlist = await db.query.watchlist.findFirst({
-        where: (model, { eq }) => eq(model.userID, userID) && eq(model.movieID, movieID),
-    });
-
-    return watchlist;
-}
-
 export async function patchRatings(id: string, rating: number) {
     const patchedRatings = await db.update(ratings)
         .set({ rating: rating })
