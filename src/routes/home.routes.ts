@@ -1,5 +1,5 @@
 import express from 'express';
-import { postUser, getUser } from '../queries';
+import { postUser, getUser } from '../services/users.service';
 
 const router = express.Router();
 

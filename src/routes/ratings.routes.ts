@@ -1,5 +1,5 @@
 import express from 'express';
-import { postRatings, getRatings, patchRatings, deleteMovieFromRatings } from '../queries';
+import { postRatings, getRatings, patchRatings, deleteMovieFromRatings } from '../services/ratings.service';
 
 const router = express.Router();
 

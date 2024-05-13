@@ -1,5 +1,5 @@
 import express from 'express';
-import { postWatchlist, getWatchlist, deleteMovieFromWatchlist } from '../queries';
+import { postWatchlist, getWatchlist, deleteMovieFromWatchlist } from '../services/watchlist.service';
 
 const router = express.Router();
 

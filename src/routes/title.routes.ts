@@ -1,5 +1,6 @@
 import express from 'express';
-import { getRating, getMovieFromWatchlist } from '../queries';
+import { getRating } from '../services/ratings.service';
+import { getMovieFromWatchlist } from '../services/watchlist.service';
 
 const router = express.Router();
 
