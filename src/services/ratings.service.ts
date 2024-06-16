@@ -39,5 +39,5 @@ export async function patchRatings(id: string, userID: string, rating: number) {
 export async function deleteMovieFromRatings(id: string, userID: string) {
     await db
         .delete(ratings)
-        .where(and(eq(ratings.movieID, id), eq(ratings.userID, userID)));
+        .where(and(eq(ratings.id, id), eq(ratings.userID, userID)));
 }
