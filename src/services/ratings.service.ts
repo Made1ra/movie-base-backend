@@ -28,10 +28,10 @@ export async function getRatings(id: string) {
     return ratings;
 }
 
-export async function patchRatings(id: string, rating: number) {
+export async function patchRatings(id: string, userID: string, rating: number) {
     const patchedRatings = await db.update(ratings)
         .set({ rating: rating })
-        .where(and(eq(ratings.movieID, id), eq(ratings.userID, users.id)));
+        .where(and(eq(ratings.movieID, id), eq(ratings.userID, userID)));
 
     return patchedRatings;
 }

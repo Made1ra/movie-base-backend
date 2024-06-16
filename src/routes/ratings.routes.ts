@@ -27,10 +27,10 @@ router.get('/user/:id/ratings', async (request, response) => {
 });
 
 router.patch('/user/:id/ratings', async (request, response) => {
-    const id = request.params.id;
-    const { rating } = request.body;
+    const userID = request.params.id;
+    const { id, rating } = request.body;
     try {
-        const ratings = await patchRatings(id, rating);
+        const ratings = await patchRatings(id, userID, rating);
         response.status(200).json(ratings);
     } catch (error) {
         console.error('Error editing the ratings:', error);

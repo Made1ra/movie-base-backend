@@ -28,8 +28,8 @@ export async function getWatchlist(id: string) {
     return watchlist;
 }
 
-export async function deleteMovieFromWatchlist(id: string) {
+export async function deleteMovieFromWatchlist(id: string, userID: string) {
     await db
         .delete(watchlist)
-        .where(and(eq(watchlist.id, id), eq(watchlist.userID, users.id)));
+        .where(and(eq(watchlist.id, id), eq(watchlist.userID, userID)));
 }
