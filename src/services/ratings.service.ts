@@ -36,8 +36,8 @@ export async function patchRatings(id: string, rating: number) {
     return patchedRatings;
 }
 
-export async function deleteMovieFromRatings(id: string) {
+export async function deleteMovieFromRatings(id: string, userID: string) {
     await db
         .delete(ratings)
-        .where(and(eq(ratings.id, id), eq(ratings.userID, users.id)));
+        .where(and(eq(ratings.id, id), eq(ratings.userID, userID)));
 }
