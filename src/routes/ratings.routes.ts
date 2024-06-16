@@ -39,9 +39,10 @@ router.patch('/user/:id/ratings', async (request, response) => {
 });
 
 router.delete('/user/:id/ratings', async (request, response) => {
-    const id = request.params.id;
+    const userID = request.params.id;
+    const { id } = request.body;
     try {
-        await deleteMovieFromRatings(id);
+        await deleteMovieFromRatings(id, userID);
         response.status(200).json({ message: 'Rating deleted successfully' });
     } catch (error) {
         console.error('Error deleting the ratings:', error);
